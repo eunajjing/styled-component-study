@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -10,7 +10,17 @@ const GlobalStyle = createGlobalStyle`
 
 interface ButtonTypes {
   danger?: string;
+  duration?: number;
 }
+
+const rotation = keyframes`
+  from {
+    transform : rotate(0deg);
+  }
+  to {
+    transform : rotate(360deg);
+  }
+`;
 
 const Button = styled.button<ButtonTypes>`
   border-radius: 50px;
@@ -25,6 +35,13 @@ const Button = styled.button<ButtonTypes>`
     outline: none;
   }
   background-color: ${props => (props.danger ? "red" : "greenyellow")};
+  ${props => {
+    if (props.danger) {
+      return css`
+        animation: ${rotation} ${props.duration}s linear infinite;
+      `;
+    }
+  }}
 `;
 
 const Container = styled.div`
@@ -43,7 +60,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Container>
         <Button />
-        <Button danger="danger" />
+        <Button danger="danger" duration={5} />
         <Achor href="http://google.com">go to google</Achor>
       </Container>
     </>
