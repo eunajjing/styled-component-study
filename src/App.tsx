@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { createGlobalStyle, css, keyframes } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -8,40 +8,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-interface ButtonTypes {
-  danger?: string;
-  duration?: number;
-}
-
-const rotation = keyframes`
-  from {
-    transform : rotate(0deg);
-  }
-  to {
-    transform : rotate(360deg);
-  }
-`;
-
-const Button = styled.button<ButtonTypes>`
-  border-radius: 50px;
-  padding: 5px;
-  min-width: 120px;
-  color: white;
-  font-weight: 600;
-  -webkit-appearance: none;
-  cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
-  background-color: ${props => (props.danger ? "red" : "greenyellow")};
-  ${props => {
-    if (props.danger) {
-      return css`
-        animation: ${rotation} ${props.duration}s linear infinite;
-      `;
-    }
-  }}
+const awesomeCard = css`
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
 `;
 
 const Container = styled.div`
@@ -50,8 +20,12 @@ const Container = styled.div`
   background-color: silver;
 `;
 
-const Achor = styled(Button.withComponent("a"))`
-  text-decoration: none;
+const Input = styled.input.attrs({
+  required: true
+})`
+  border: none;
+  border-radius: 5px;
+  ${awesomeCard}
 `;
 
 const App: React.FC = () => {
@@ -59,9 +33,7 @@ const App: React.FC = () => {
     <>
       <GlobalStyle />
       <Container>
-        <Button />
-        <Button danger="danger" duration={5} />
-        <Achor href="http://google.com">go to google</Achor>
+        <Input placeholder="hello" />
       </Container>
     </>
   );
