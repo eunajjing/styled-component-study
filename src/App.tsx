@@ -1,5 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    padding : 0;
+    margin : 0;
+  }
+`;
 
 interface ButtonTypes {
   danger?: string;
@@ -26,12 +33,20 @@ const Container = styled.div`
   background-color: silver;
 `;
 
+const Achor = styled(Button.withComponent("a"))`
+  text-decoration: none;
+`;
+
 const App: React.FC = () => {
   return (
-    <Container>
-      <Button />
-      <Button danger="danger" />
-    </Container>
+    <>
+      <GlobalStyle />
+      <Container>
+        <Button />
+        <Button danger="danger" />
+        <Achor href="http://google.com">go to google</Achor>
+      </Container>
+    </>
   );
 };
 
